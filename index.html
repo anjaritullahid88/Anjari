@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VCRDB Portfolio</title>
+  <title>Crosshair Valorant</title>
 
   <style>
     body {
@@ -114,17 +114,17 @@
 <body>
 
 <header>
-  <h1>🎬 VCRDB Portfolio</h1>
-  <p>Mini Database Film (Frontend Project)</p>
+  <h1>🎬 Crosshair Valorant</h1>
+  <p>Mini Database Crosshair (Frontend Project)</p>
 </header>
 
 <div class="controls">
   <input type="text" id="searchInput" placeholder="Cari film...">
   <select id="genreFilter">
     <option value="all">Semua Genre</option>
-    <option value="Action">Action</option>
-    <option value="Horror">Horror</option>
-    <option value="Comedy">Comedy</option>
+    <option value="dot">dot</option>
+    <option value="straight">straight</option>
+    <option value="line">line</option>
   </select>
 </div>
 
@@ -146,26 +146,20 @@ document.addEventListener("DOMContentLoaded", function(){
 
 const videos = [
   {
-    title: "Action Movie",
-    year: 2000,
-    genre: "Action",
-    desc: "Film aksi penuh ledakan.",
-    img: "https://picsum.photos/300/200?random=1"
+    title: "dot",
+    desc: "0;c;1;s;1;P;o;1;d;1;0l;2;0v;0;0g;1;0o;0;0a;1;0f;0;1b;0;S;s;0.53",
+    img: "data:image/webp;base64,UklGRnIDAABXRUJQVlA4IGYDAABQIgCdASoAAQABPpFEnEwloyYlIlHJYMASCWluvcCXeRIz6IlG1I6DutVWK47z0+8DBbLbxBaoiypk2GvZxi87xq42JF47T7u925wa7HYHq3Pn71kH4vWUtDOwOpoQDYfnOxz3z0m4lxynKXYKQEAXz5YyZj8NiiAsuonp3Y86n3rIWPHvBkqhGAUAxuD1OZu89PvWQrtAeO71VxFDx1Se7DWajVAJ14/MCU/Sm0lOFVfc+N9KiO7tVWHp1kHHbJ8A8ZMLzMoX0B6uyEQelvVlndT9jdKU/ci8+K1kCamMZARsB4KaooK2x9EZQop2XMrL8s5NiByCNxDz9WRESrqqGak/Y0NaB//NoI8VeUvi3AtGKrDu+x5BCNwAAPv4H+kulyGsQdOqrgpxvrfGybgh6QnxJf4FD+9Phr0w8P5I++eKxV0VGPbMqGDJ6S6Oda2AXMU7EuyWa+YZjQv+l65vbZB7YsqJsZJrNRsLWUcXBNI0nGeISjYiIze4y4gTvKqWGBVM3KiKUflcjyKlv0koUayLSsPp9NMSlMi5Zn3xRYNV8oMjbCQX9q12xLwNQcn1YCql9dOiojAxC9ZTBlQw69FPjmBG9Wf653l1lXiuS3fkDYdw8YTm7vsTQbCNlWx2FJIiwhrYwqB0IwJQ9eB/cTf6FhBFqOm9xcA1b3/QBvgT/QSEBtn9WVyZ392w0KeuH1HGhugF9mfgQFhbx5f22sO7kmtSStMvMOSHmWLJs9L66qyVYcPS9EZKBbb/et2Pnm5h91AvOAZDouBy6vw+7eEzX97cgZP5S7/Xnp1EpdF/VwFn4SdyEopxtyoLd5re3kT7O4byrgZkPDFckgEG+P5VFVi0kg/TwEIs0CdTusq6vf7FtNFdvayFRs1zNYHdqDFZ3QfsxFFnLTtbQmqom6dS1TTNcqCNPFvBlcaY4X4jvN9+YgdumvJ950s2Vy9P95UpWv6u8QbEcKQcfYrgBP3ioTdoPLFcAQnHskfa5+nkzH6tH8YMuRrc8Si6QkeaXY98aBNbVesrEqENn7QuTCOhQURQb5QYCXgIAL0gFwifgb+PxFEKaRqDQnJ6BPhQkfGuIWIPT1mNx7y8++YBTaxlPaEiAUKKyYDpKUQrKsVF9qywlWmwKBldytEviq68IfAAAAA="
   },
   {
-    title: "Horror Night",
-    year: 1995,
-    genre: "Horror",
-    desc: "Film horor menyeramkan.",
-    img: "https://picsum.photos/300/200?random=2"
+    title: "dot",
+    desc: "0;c;1;s;1;P;o;1;d;1;0l;2;0v;0;0g;1;0o;0;0a;1;0f;0;1b;0;S;s;0.53",
+    img: "data:image/webp;base64,UklGRnIDAABXRUJQVlA4IGYDAABQIgCdASoAAQABPpFEnEwloyYlIlHJYMASCWluvcCXeRIz6IlG1I6DutVWK47z0+8DBbLbxBaoiypk2GvZxi87xq42JF47T7u925wa7HYHq3Pn71kH4vWUtDOwOpoQDYfnOxz3z0m4lxynKXYKQEAXz5YyZj8NiiAsuonp3Y86n3rIWPHvBkqhGAUAxuD1OZu89PvWQrtAeO71VxFDx1Se7DWajVAJ14/MCU/Sm0lOFVfc+N9KiO7tVWHp1kHHbJ8A8ZMLzMoX0B6uyEQelvVlndT9jdKU/ci8+K1kCamMZARsB4KaooK2x9EZQop2XMrL8s5NiByCNxDz9WRESrqqGak/Y0NaB//NoI8VeUvi3AtGKrDu+x5BCNwAAPv4H+kulyGsQdOqrgpxvrfGybgh6QnxJf4FD+9Phr0w8P5I++eKxV0VGPbMqGDJ6S6Oda2AXMU7EuyWa+YZjQv+l65vbZB7YsqJsZJrNRsLWUcXBNI0nGeISjYiIze4y4gTvKqWGBVM3KiKUflcjyKlv0koUayLSsPp9NMSlMi5Zn3xRYNV8oMjbCQX9q12xLwNQcn1YCql9dOiojAxC9ZTBlQw69FPjmBG9Wf653l1lXiuS3fkDYdw8YTm7vsTQbCNlWx2FJIiwhrYwqB0IwJQ9eB/cTf6FhBFqOm9xcA1b3/QBvgT/QSEBtn9WVyZ392w0KeuH1HGhugF9mfgQFhbx5f22sO7kmtSStMvMOSHmWLJs9L66qyVYcPS9EZKBbb/et2Pnm5h91AvOAZDouBy6vw+7eEzX97cgZP5S7/Xnp1EpdF/VwFn4SdyEopxtyoLd5re3kT7O4byrgZkPDFckgEG+P5VFVi0kg/TwEIs0CdTusq6vf7FtNFdvayFRs1zNYHdqDFZ3QfsxFFnLTtbQmqom6dS1TTNcqCNPFvBlcaY4X4jvN9+YgdumvJ950s2Vy9P95UpWv6u8QbEcKQcfYrgBP3ioTdoPLFcAQnHskfa5+nkzH6tH8YMuRrc8Si6QkeaXY98aBNbVesrEqENn7QuTCOhQURQb5QYCXgIAL0gFwifgb+PxFEKaRqDQnJ6BPhQkfGuIWIPT1mNx7y8++YBTaxlPaEiAUKKyYDpKUQrKsVF9qywlWmwKBldytEviq68IfAAAAA="
   },
   {
-    title: "Funny Comedy",
-    year: 2010,
-    genre: "Comedy",
-    desc: "Film komedi yang lucu.",
-    img: "https://picsum.photos/300/200?random=3"
-  }
+    title: "dot",
+    desc: "0;c;1;s;1;P;o;1;d;1;0l;2;0v;0;0g;1;0o;0;0a;1;0f;0;1b;0;S;s;0.53",
+    img: "data:image/webp;base64,UklGRnIDAABXRUJQVlA4IGYDAABQIgCdASoAAQABPpFEnEwloyYlIlHJYMASCWluvcCXeRIz6IlG1I6DutVWK47z0+8DBbLbxBaoiypk2GvZxi87xq42JF47T7u925wa7HYHq3Pn71kH4vWUtDOwOpoQDYfnOxz3z0m4lxynKXYKQEAXz5YyZj8NiiAsuonp3Y86n3rIWPHvBkqhGAUAxuD1OZu89PvWQrtAeO71VxFDx1Se7DWajVAJ14/MCU/Sm0lOFVfc+N9KiO7tVWHp1kHHbJ8A8ZMLzMoX0B6uyEQelvVlndT9jdKU/ci8+K1kCamMZARsB4KaooK2x9EZQop2XMrL8s5NiByCNxDz9WRESrqqGak/Y0NaB//NoI8VeUvi3AtGKrDu+x5BCNwAAPv4H+kulyGsQdOqrgpxvrfGybgh6QnxJf4FD+9Phr0w8P5I++eKxV0VGPbMqGDJ6S6Oda2AXMU7EuyWa+YZjQv+l65vbZB7YsqJsZJrNRsLWUcXBNI0nGeISjYiIze4y4gTvKqWGBVM3KiKUflcjyKlv0koUayLSsPp9NMSlMi5Zn3xRYNV8oMjbCQX9q12xLwNQcn1YCql9dOiojAxC9ZTBlQw69FPjmBG9Wf653l1lXiuS3fkDYdw8YTm7vsTQbCNlWx2FJIiwhrYwqB0IwJQ9eB/cTf6FhBFqOm9xcA1b3/QBvgT/QSEBtn9WVyZ392w0KeuH1HGhugF9mfgQFhbx5f22sO7kmtSStMvMOSHmWLJs9L66qyVYcPS9EZKBbb/et2Pnm5h91AvOAZDouBy6vw+7eEzX97cgZP5S7/Xnp1EpdF/VwFn4SdyEopxtyoLd5re3kT7O4byrgZkPDFckgEG+P5VFVi0kg/TwEIs0CdTusq6vf7FtNFdvayFRs1zNYHdqDFZ3QfsxFFnLTtbQmqom6dS1TTNcqCNPFvBlcaY4X4jvN9+YgdumvJ950s2Vy9P95UpWv6u8QbEcKQcfYrgBP3ioTdoPLFcAQnHskfa5+nkzH6tH8YMuRrc8Si6QkeaXY98aBNbVesrEqENn7QuTCOhQURQb5QYCXgIAL0gFwifgb+PxFEKaRqDQnJ6BPhQkfGuIWIPT1mNx7y8++YBTaxlPaEiAUKKyYDpKUQrKsVF9qywlWmwKBldytEviq68IfAAAAA="
+  },
 ];
 
 const videoList = document.getElementById("videoList");
