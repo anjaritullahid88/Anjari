@@ -3,165 +3,240 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VCRDB Mini Advanced</title>
+  <title>VCRDB Portfolio</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-      background-color: #f5f5f5;
+      margin: 0;
+      background: #111;
+      color: #fff;
     }
-    h1 {
+
+    header {
       text-align: center;
-      color: #333;
+      padding: 20px;
+      background: #1c1c1c;
     }
+
+    h1 {
+      margin: 0;
+      color: #ff3c3c;
+    }
+
     .controls {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
+      gap: 10px;
+      padding: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: #1c1c1c;
     }
+
     input, select {
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      flex: 1;
-      margin-right: 10px;
-    }
-    button {
-      padding: 10px 15px;
-      background-color: #333;
-      color: white;
+      border-radius: 5px;
       border: none;
-      border-radius: 4px;
-      cursor: pointer;
+      width: 200px;
     }
-    button:hover { background-color: #555; }
-    ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-    li {
-      background: white;
-      border-radius: 6px;
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .card {
+      background: #222;
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: 0.2s;
     }
-    li:hover { transform: scale(1.03); }
-    li img { width: 100%; display: block; }
-    li .info { padding: 10px; }
-    li .info h3 { margin: 0 0 5px 0; font-size: 16px; }
-    li .info p { margin: 0; font-size: 14px; color: #666; }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .card .info {
+      padding: 10px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      color: #bbb;
+    }
+
+    /* MODAL */
     #modal {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0,0,0,0.8);
     }
-    #modal .content {
-      background: white; padding: 20px; border-radius: 6px; max-width: 500px; width: 90%;
+
+    .modal-content {
+      background: #222;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 90%;
     }
-    #modal .content h2 { margin-top: 0; }
-    #modal .close {
-      position: absolute; top: 10px; right: 20px; cursor: pointer; font-size: 24px; color: white;
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 30px;
+      cursor: pointer;
     }
   </style>
 </head>
+
 <body>
 
-  <h1>VCRDB Mini Advanced</h1>
+<header>
+  <h1>🎬 VCRDB Portfolio</h1>
+  <p>Mini Database Film (Frontend Project)</p>
+</header>
 
-  <div class="controls">
-    <input type="text" id="searchInput" placeholder="Cari video...">
-    <select id="genreFilter">
-      <option value="all">Semua Genre</option>
-      <option value="Action">Action</option>
-      <option value="Horror">Horror</option>
-      <option value="Comedy">Comedy</option>
-      <option value="Sci-Fi">Sci-Fi</option>
-    </select>
-    <button id="searchBtn">Cari</button>
+<div class="controls">
+  <input type="text" id="searchInput" placeholder="Cari film...">
+  <select id="genreFilter">
+    <option value="all">Semua Genre</option>
+    <option value="Action">Action</option>
+    <option value="Horror">Horror</option>
+    <option value="Comedy">Comedy</option>
+  </select>
+</div>
+
+<div class="grid" id="videoList"></div>
+
+<!-- MODAL -->
+<div id="modal">
+  <div class="modal-content">
+    <h2 id="modalTitle"></h2>
+    <p id="modalGenre"></p>
+    <p id="modalYear"></p>
+    <p id="modalDesc"></p>
   </div>
+  <div class="close" id="closeBtn">&times;</div>
+</div>
 
-  <ul id="videoList"></ul>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
 
-  <!-- Modal Detail -->
-  <div id="modal">
-    <div class="content">
-      <h2 id="modalTitle"></h2>
-      <p id="modalGenre"></p>
-      <p id="modalYear"></p>
-      <p id="modalDesc"></p>
-    </div>
-    <div class="close" id="modalClose">&times;</div>
-  </div>
+const videos = [
+  {
+    title: "Action Movie",
+    year: 2000,
+    genre: "Action",
+    desc: "Film aksi penuh ledakan.",
+    img: "https://picsum.photos/300/200?random=1"
+  },
+  {
+    title: "Horror Night",
+    year: 1995,
+    genre: "Horror",
+    desc: "Film horor menyeramkan.",
+    img: "https://picsum.photos/300/200?random=2"
+  },
+  {
+    title: "Funny Comedy",
+    year: 2010,
+    genre: "Comedy",
+    desc: "Film komedi yang lucu.",
+    img: "https://picsum.photos/300/200?random=3"
+  }
+];
 
-  <script>
-    const videos = [
-      { title: "VHS Classic Movie", year: 1990, genre: "Comedy", desc: "Film klasik VHS yang lucu.", img: "https://via.placeholder.com/200x120?text=VHS+Classic" },
-      { title: "Action Movie 2000", year: 2000, genre: "Action", desc: "Film aksi menegangkan.", img: "https://via.placeholder.com/200x120?text=Action+2000" },
-      { title: "Horror Flick", year: 1985, genre: "Horror", desc: "Film horor klasik.", img: "https://via.placeholder.com/200x120?text=Horror+Flick" },
-      { title: "Romantic Comedy", year: 1995, genre: "Comedy", desc: "Rom-com manis dan lucu.", img: "https://via.placeholder.com/200x120?text=Romantic+Comedy" },
-      { title: "Sci-Fi Adventure", year: 2010, genre: "Sci-Fi", desc: "Petualangan sains futuristik.", img: "https://via.placeholder.com/200x120?text=Sci-Fi+Adventure" }
-    ];
+const videoList = document.getElementById("videoList");
+const searchInput = document.getElementById("searchInput");
+const genreFilter = document.getElementById("genreFilter");
 
-    const searchInput = document.getElementById("searchInput");
-    const genreFilter = document.getElementById("genreFilter");
-    const searchBtn = document.getElementById("searchBtn");
-    const videoList = document.getElementById("videoList");
+const modal = document.getElementById("modal");
+const modalTitle = document.getElementById("modalTitle");
+const modalGenre = document.getElementById("modalGenre");
+const modalYear = document.getElementById("modalYear");
+const modalDesc = document.getElementById("modalDesc");
 
-    const modal = document.getElementById("modal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalGenre = document.getElementById("modalGenre");
-    const modalYear = document.getElementById("modalYear");
-    const modalDesc = document.getElementById("modalDesc");
-    const modalClose = document.getElementById("modalClose");
+function render(list){
+  videoList.innerHTML = "";
 
-    function renderVideos(list) {
-      videoList.innerHTML = "";
-      if(list.length === 0){
-        videoList.innerHTML = "<li>Tidak ada video ditemukan</li>";
-        return;
-      }
+  list.forEach(v => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-      list.forEach(v => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <img src="${v.img}" alt="${v.title}">
-          <div class="info">
-            <h3>${v.title}</h3>
-            <p>${v.genre} | ${v.year}</p>
-          </div>
-        `;
-        li.addEventListener("click", () => showModal(v));
-        videoList.appendChild(li);
-      });
-    }
+    const img = document.createElement("img");
+    img.src = v.img;
 
-    function searchVideo() {
-      const query = searchInput.value.trim().toLowerCase();
-      const genre = genreFilter.value;
-      const filtered = videos.filter(v => 
-        v.title.toLowerCase().includes(query) &&
-        (genre === "all" || v.genre === genre)
-      );
-      renderVideos(filtered);
-    }
+    const info = document.createElement("div");
+    info.className = "info";
 
-    function showModal(video) {
+    const title = document.createElement("h3");
+    title.textContent = v.title;
+
+    const meta = document.createElement("p");
+    meta.textContent = v.genre + " | " + v.year;
+
+    info.appendChild(title);
+    info.appendChild(meta);
+
+    card.appendChild(img);
+    card.appendChild(info);
+
+    card.onclick = function(){
       modal.style.display = "flex";
-      modalTitle.textContent = video.title;
-      modalGenre.textContent = `Genre: ${video.genre}`;
-      modalYear.textContent = `Tahun: ${video.year}`;
-      modalDesc.textContent = video.desc;
-    }
+      modalTitle.textContent = v.title;
+      modalGenre.textContent = "Genre: " + v.genre;
+      modalYear.textContent = "Tahun: " + v.year;
+      modalDesc.textContent = v.desc;
+    };
 
-    modalClose.addEventListener("click", () => modal.style.display = "none");
-    window.addEventListener("click", e => { if(e.target === modal) modal.style.display = "none"; });
+    videoList.appendChild(card);
+  });
+}
 
-    searchBtn.addEventListener("click", searchVideo);
-    searchInput.addEventListener("keyup", e => { if(e.key === "Enter") searchVideo(); });
+function filter(){
+  const q = searchInput.value.toLowerCase();
+  const g = genreFilter.value;
 
-    // Render semua video saat pertama kali buka
-    renderVideos(videos);
-  </script>
+  const result = videos.filter(v =>
+    v.title.toLowerCase().includes(q) &&
+    (g === "all" || v.genre === g)
+  );
+
+  render(result);
+}
+
+searchInput.addEventListener("keyup", filter);
+genreFilter.addEventListener("change", filter);
+
+document.getElementById("closeBtn").onclick = () => modal.style.display = "none";
+window.onclick = e => { if(e.target === modal) modal.style.display = "none"; };
+
+render(videos);
+
+});
+</script>
 
 </body>
 </html>
